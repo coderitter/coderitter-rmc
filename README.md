@@ -22,7 +22,7 @@ There is also a [branch](https://github.com/c0deritter/remote-method-call/tree/c
 
 ## Install
 
-`npm install coderitter-api-remote-method-call`
+`npm install coderitter-api-rmc`
 
 ## Overview
 
