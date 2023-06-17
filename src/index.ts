@@ -1,2 +1,2 @@
-export { default as RemoteMethodCall } from './RemoteMethodCall'
-export { default as Result } from './Result'
+export * from './RemoteMethodCall'
+export * from './Result'

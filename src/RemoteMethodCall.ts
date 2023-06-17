@@ -1,7 +1,7 @@
-export default interface RemoteMethodCall {
-  apiVersion: number
+export interface RemoteMethodCall {
+  apiVersion?: number
   apiKey?: string
   token?: string
   method: string
-  parameter?: any
+  parameters?: any
 }

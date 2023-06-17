@@ -1,10 +1,14 @@
 import { Misfit } from 'knight-validation'
 
-export default class Result {
+export class Result {
 
   type: string = 'value'
   misfits!: Misfit[]
-  remoteError!: string
+  error!: string
+
+  constructor(values?: any) {
+    Object.assign(this, values)
+  }
 
   isValue(): boolean {
     return this.type == 'value'
@@ -14,8 +18,8 @@ export default class Result {
     return this.type == 'misfits'
   }
 
-  isRemoteError(): boolean {
-    return this.type == 'remoteError'
+  isError(): boolean {
+    return this.type == 'error'
   }
 
   static misfits<T extends Result>(misfit: Misfit): T
@@ -35,22 +39,10 @@ export default class Result {
     return <T> result
   }
 
-  static remoteError<T extends Result>(error: string): T {
+  static error<T extends Result>(error: string): T {
     let result = new this()
-    result.type = 'remoteError'
-    result.remoteError = error
+    result.type = 'error'
+    result.error = error
     return <T> result
-  }
-
-  static fromRemote<T extends Result>(result: T): T {
-    if (result.isRemoteError()) {
-      throw new Error(result.remoteError)
-    }
-
-    if (! result.isMisfits() && ! result.isValue()) {
-      throw new Error('Unknown result type')
-    }
-  
-    return result
   }
 }
