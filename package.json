@@ -1,6 +1,6 @@
 {
-  "name": "coderitter-api-rmc",
-  "version": "1.0.0-rc.2",
+  "name": "coderitter-rmc",
+  "version": "1.0.0-rc.1",
   "description": "An adoption of the remote method call for the Coderitter API architecture",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -13,16 +13,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/c0deritter/coderitter-api-rmc"
+    "url": "git+https://github.com/c0deritter/coderitter-rmc"
   },
   "keywords": [
     ""
   ],
   "author": "Coderitter GmbH",
   "bugs": {
-    "url": "https://github.com/c0deritter/coderitter-api-rmc/issues"
+    "url": "https://github.com/c0deritter/coderitter-rmc/issues"
   },
-  "homepage": "https://github.com/c0deritter/coderitter-api-rmc#readme",
+  "homepage": "https://github.com/c0deritter/coderitter-rmc#readme",
   "devDependencies": {
     "@types/chai": "^4.3.3",
     "@types/mocha": "^9.1.1",
@@ -30,8 +30,5 @@
     "mocha": "^10.0.0",
     "ts-node": "^10.9.1",
     "typescript": "^4.8.3"
-  },
-  "dependencies": {
-    "knight-validation": "^2.0.4"
   }
 }

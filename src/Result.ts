@@ -1,48 +1,31 @@
-import { Misfit } from 'knight-validation'
+import { Misfit } from './Misfit'
 
 export class Result {
 
-  type: string = 'value'
-  misfits!: Misfit[]
-  error!: string
+    misfits?: Misfit[]
+    error?: string
 
-  constructor(values?: any) {
-    Object.assign(this, values)
-  }
-
-  isValue(): boolean {
-    return this.type == 'value'
-  }
-
-  isMisfits(): boolean {
-    return this.type == 'misfits'
-  }
-
-  isError(): boolean {
-    return this.type == 'error'
-  }
-
-  static misfits<T extends Result>(misfit: Misfit): T
-  static misfits<T extends Result>(misfit: Misfit[]): T
-
-  static misfits<T extends Result>(misfits: Misfit|Misfit[]): T {
-    let result = new this()
-    result.type = 'misfits'
-
-    if (misfits instanceof Array) {
-      result.misfits = misfits
-    }
-    else if (misfits != undefined) {
-      result.misfits = [ misfits ]
+    constructor(result?: any) {
+        Object.assign(this, result)
     }
 
-    return <T> result
-  }
+    static misfits<T extends Result>(misfit: Misfit): T
+    static misfits<T extends Result>(misfit: Misfit[]): T
 
-  static error<T extends Result>(error: string): T {
-    let result = new this()
-    result.type = 'error'
-    result.error = error
-    return <T> result
-  }
+    static misfits<T extends Result>(misfits: Misfit | Misfit[]): T {
+        let result = new Result
+
+        if (misfits instanceof Array) {
+            result.misfits = misfits
+        }
+        else {
+            result.misfits = [ misfits ]
+        }
+
+        return result as T
+    }
+
+    static error<T extends Result>(error: string): T {
+        return new Result({ error: error }) as T
+    }
 }
