@@ -1,6 +1,6 @@
 {
   "name": "coderitter-rmc",
-  "version": "1.0.0-rc.2",
+  "version": "1.0.0",
   "description": "The remote method call of the Coderitter API architecture",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
