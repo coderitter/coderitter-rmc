@@ -1,4 +1,4 @@
-import { Misfit } from './Misfit'
+import { Misfit } from 'knight-misfit'
 
 export class Result {
 
