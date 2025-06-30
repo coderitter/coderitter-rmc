@@ -36,16 +36,22 @@ The properties `method` and `parameters` represent the name of the remote method
 
 #### Method naming scheme and standard methods
 
-The Coderitter API's remote method call uses an `Object.method` naming scheme. For example, an object might be called `User`. A method regarding a user might be `get`. Thus the resulting method name is `User.get`.
+The Coderitter API's remote method call uses an `Entity.method` naming scheme. For example, an entity might be called `User`. A method regarding a user might be `get`. Thus the resulting method name is `User.get`.
 
-The Coderitter API defines the following standard methods which most of the objects want to implement.
+The Coderitter API defines the following standard methods which most of the entities want to implement.
 
-- `get`: Retrieve arbitrary many objects.
-- `count`: Count objects.
-- `store`: Stores an object. If the objects was not already stored, it is created, if it was already stored, it is updated.
-- `delete`: Delete an object. Most of the time it will be implemented in the way that exactly one object is deleted. There can also be implementations where more than one object is.
+- `get`: Retrieve entities.
+- `count`: Count entities.
+- `store`: Stores an entity. If the entity was not already stored, it is created, if it was already stored, it is updated.
+- `delete`: Delete an entity.
 
 Additional methods can and have to be added as appropriate.
+
+#### Default remote method call interfaces
+
+This package defines a set of default remote method call interfaces.
+
+- `RemoteCriteriaCall`: Uses [knight-criteria](https://github.com/coderitter/knight-criteria) to retrieve individually filtered entities for example through a get method.
 
 ### Result
 
@@ -90,21 +96,29 @@ Result.misfits(misfits)
 Result.error('There was an error in our application. We will fix this soon.')
 ```
 
+#### Default result classes
+
+This package also defines a set of default results.
+
+- `ChangeResult`: A result that contains [knight-change](https://github.com/coderitter/knight-change) `Changes` and can be used when the called method method altered the data inside an entity store like a traditional SQL database.
+- `GetResult`: A result that is used for get methods that return entities from the database.
+- `CountResult`: A result that is used for count methods that count entities inside a database.
+
 #### Creating your own result class
 
 When defining results in your application you will want to specify the structure of different result types by creating classes for each of them.
 
 ```typescript
-class UserCreateResult extends Result {
-    createdUser: User
+class UserLoginResult extends Result {
+    user: User
 
-    constructor(createdUser: User) {
+    constructor(user: User) {
         super()
-        this.createdUser = createdUser
+        this.user = user
     }
 }
 ```
 
 ## Sending a Remote Method Call via an HTTP request
 
-For sending a remote method call via HTTP we suggest POSTonly as the HTTP usage style. It uses the `POST` HTTP method only and the remote method call data object is put as a JSON string into the body of the HTTP message. No other places for parameters needed. You can use the package [postonly-request](https://github.com/coderitter/postonly-request) to do so.
+For sending a remote method call via HTTP the [POSTonly](https://github.com/coderitter/knight-criteria#postonly) HTTP usage style is used. It uses the `POST` HTTP method only and the remote method call data object is put as a JSON string into the body of the HTTP message. No other places for parameters needed.

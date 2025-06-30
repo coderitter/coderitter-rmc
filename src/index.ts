@@ -1,2 +1,5 @@
 export * from './RemoteMethodCall'
 export * from './Result'
+export * from './results/ChangeResult'
+export * from './results/CountResult'
+export * from './results/GetResult'

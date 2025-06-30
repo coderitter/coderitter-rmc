@@ -24,6 +24,8 @@
   },
   "homepage": "https://github.com/coderitter/coderitter-rmc#readme",
   "dependencies": {
+    "knight-change": "^2.0.0",
+    "knight-criteria": "^2.2.1",
     "knight-misfit": "^1.0.0"
   },
   "devDependencies": {
