@@ -1,4 +1,4 @@
-# Coderitter RMC
+# Coderitter API Architecture - Remote method call (RMC)
 
 An implementation of the [remote-method-call](https://github.com/coderitter/remote-method-call) for the Coderitter API Architecture. Please refer to its [README.md](https://github.com/coderitter/remote-method-call) to find out more about what a remote method call is and how its implementation philosophy aims to support any protocol.
 
