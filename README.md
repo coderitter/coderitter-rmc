@@ -1,26 +1,22 @@
-# Coderitter API RMC
+# Coderitter RMC
 
-A Coderitter implemention of the [remote-method-call](https://github.com/c0deritter/remote-method-call) aiming to offer an alternative to classic REST HTTP API's.
+An implementation of the [remote-method-call](https://github.com/coderitter/remote-method-call) for the Coderitter API Architecture. Please refer to its [README.md](https://github.com/coderitter/remote-method-call) to find out more about what a remote method call is and how its implementation philosophy aims to support any protocol.
 
-Selling points:
-
-1. Choose your own method names instead of having to resort to the static set of partially unintuitive methods names like `PUT`, `POST`, `DELETE`, `PATCH` or `GET`
-2. Put all parameters into the HTTP message in one place instead of cumbersomely putting them into mutliple ones
-3. Extend your API to other transports like WebSockets, Kafka or MQTT without having to adjust your message format
+The RMC implementation of this package addresses the requirements of the Coderitter API Architecture. Thus, it is intended to be used in conjunction with it, though it might be general enough to be also interesting for other applications. If you need your very own implementation, start from this package or from the [remote-method-call](https://github.com/coderitter/remote-method-call) base package.
 
 ## Related packages
 
-On the server side you can use [coderitter-rmc-api](https://github.com/c0deritter/remote-method-api) which offers a simple mapping from a received remote method call to a function which receives the parameters of that remote method call for further processing.
+On the server side, the Coderitter API Architecture uses the [coderitter-rmc-api](https://github.com/coderitter/remote-method-api), which offers a simple mapping from a received remote method call to a function which receives the parameters of that remote method call for further processing.
 
 ## Install
 
-`npm install coderitter-rmc`
+`npm install coderitter-api-rmc`
 
 ## Overview
 
 ### RemoteMethodCall
 
-There is an interface `RemoteMethodCall` for sending a remote method calls to a server.
+There is an interface `RemoteMethodCall` which describes the appearance of remote method calls that can be send to a server.
 
 ```typescript
 interface RemoteMethodCall {
@@ -34,9 +30,9 @@ interface RemoteMethodCall {
 
 The property `apiVersion` is a number starting from 1 and with every new version is incremented by 1. Every increase indicates incompatibilities to the version before. In contrast, adding new features to an API does not increase its version number.
 
-The properties `apiKey` and `token` are for authentication/authorization purposes. An API key is used for autenthicating other computer programs and a token to authenticate human users.
+The properties `apiKey` and `token` are for authentication/authorization purposes. An API key is used for authenticating other computer programs and a token to authenticate human users.
 
-The properties `method` and `parameters` represent the name of the remote method and the parameters one likes to pass to it. A parameter can be either from a simple value to an object. The latter are more common and the recommended style.
+The properties `method` and `parameters` represent the name of the remote method and the parameters one likes to pass to it. A parameter can be either a simple value or a complete object. The latter is more common and the recommended style.
 
 #### Method naming scheme and standard methods
 
@@ -44,7 +40,7 @@ The Coderitter API's remote method call uses an `Object.method` naming scheme. F
 
 The Coderitter API defines the following standard methods which most of the objects want to implement.
 
-- `get`: Retreive arbitrary many objects.
+- `get`: Retrieve arbitrary many objects.
 - `count`: Count objects.
 - `store`: Stores an object. If the objects was not already stored, it is created, if it was already stored, it is updated.
 - `delete`: Delete an object. Most of the time it will be implemented in the way that exactly one object is deleted. There can also be implementations where more than one object is.
@@ -55,10 +51,10 @@ Additional methods can and have to be added as appropriate.
 
 A remote method call yields a result which is sent as a response from the server to the calling client. The result object contains the result values as expected by the API user. Additionally, it can also indicate two types of problems.
 
-1. Misfits: The remote method call parameters contained illegitimate values, each problem being called a misfit. The API user can address these misfits and resend the remote method call.
-2. Errors: There was an internal server error while executing the remote method call. The API user cannot address the problems and needs to consult the API creators.
+1. Misfits: The parameters of the remote method call contained illegitimate values, each problem being called a misfit.
+2. Errors: If there was a problem, other than a misfitting parameter value, processing the remote method call on the server. The API user cannot address the problems and needs to consult the API creators.
 
-This package provides a class which can be used as a useful base class for any specific result.
+This package provides the class `Result` which is the base class for every result.
 
 ```typescript
 class Result {
@@ -71,7 +67,7 @@ If you want to test if the result contains misfits or an error, just check the c
 
 ```typescript
 if (result.misfits) {
-    console.log('The remote method call parameters contained mifits', result.misfits)
+    console.log('The remote method call parameters contained misfits', result.misfits)
 }
 
 if (result.error) {
@@ -109,25 +105,6 @@ class UserCreateResult extends Result {
 }
 ```
 
-### Misfit
-
-A misfit describes the reason why a value or a set of values is illegitimate. Examples for misfits are missing values, strings that do not have a desired length or numbers that are not in a specific range.
-
-Every time one field of a remote method call is illegitimate, a misifts result will be returned. A misfits result contains a list of misfit objects.
-
-A misfit contains the following information.
-
-```typescript
-export interface Misfit {
-    type: string
-    property?: string
-    properties?: string[]
-    constraints?: any
-}
-```
-
-The `type` describes the type of the misfit. The `property` contains the name of the property which yielded the misfit. In the case the misfits relates to multiple properties, the `properties` property holds an array of property names. The `constaints` property is an object containing the constraints the property or properties must adhere to to be legitimate.
-
 ## Sending a Remote Method Call via an HTTP request
 
-For sending a remote mathod call via HTTP we suggest POSTonly as the HTTP usage style. It uses the `POST` HTTP method only and the remote method call data object is put as a JSON string into the body of the HTTP message. No other places for parameters needed. You can use the package [postonly-request](https://github.com/c0deritter/postonly-request) to do so.
+For sending a remote method call via HTTP we suggest POSTonly as the HTTP usage style. It uses the `POST` HTTP method only and the remote method call data object is put as a JSON string into the body of the HTTP message. No other places for parameters needed. You can use the package [postonly-request](https://github.com/coderitter/postonly-request) to do so.
