@@ -1,7 +1,7 @@
 {
-  "name": "coderitter-rmc",
+  "name": "coderitter-api-rmc",
   "version": "1.0.0",
-  "description": "The remote method call of the Coderitter API architecture",
+  "description": "The remote method call of the Coderitter API Architecture",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [
@@ -13,16 +13,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/c0deritter/coderitter-rmc"
+    "url": "git+https://github.com/coderitter/coderitter-rmc"
   },
   "keywords": [
     ""
   ],
   "author": "Coderitter GmbH",
   "bugs": {
-    "url": "https://github.com/c0deritter/coderitter-rmc/issues"
+    "url": "https://github.com/coderitter/coderitter-rmc/issues"
   },
-  "homepage": "https://github.com/c0deritter/coderitter-rmc#readme",
+  "homepage": "https://github.com/coderitter/coderitter-rmc#readme",
   "dependencies": {
     "knight-misfit": "^1.0.0"
   },
