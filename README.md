@@ -21,7 +21,6 @@ There is an interface `RemoteMethodCall` which describes the appearance of remot
 ```typescript
 interface RemoteMethodCall {
     apiVersion?: number
-    apiKey?: string
     token?: string
     method: string
     parameters?: any
@@ -30,7 +29,7 @@ interface RemoteMethodCall {
 
 The property `apiVersion` is a number starting from 1 and with every new version is incremented by 1. Every increase indicates incompatibilities to the version before. In contrast, adding new features to an API does not increase its version number.
 
-The properties `apiKey` and `token` are for authentication/authorization purposes. An API key is used for authenticating other computer programs and a token to authenticate human users.
+The property `token` is for authentication/authorization purposes.
 
 The properties `method` and `parameters` represent the name of the remote method and the parameters one likes to pass to it. A parameter can be either a simple value or a complete object. The latter is more common and the recommended style.
 
